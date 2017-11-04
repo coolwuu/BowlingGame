@@ -41,7 +41,7 @@ namespace BowlingGame
         {
 
             string result = "X X 1- 1- 1- 1- 1- 1- 1- 1-";
-            int expectedScore = 20;
+            int expectedScore = 40;
 
             Assert.AreEqual(expectedScore, Game.FinalScoreByResult(result));
         }

@@ -2,7 +2,7 @@
 
 namespace BowlingGame
 {
-    public class BowlingGameTest
+    public partial class BowlingGameTest
     {
         public BowlingGame Game = new BowlingGame();
 
@@ -23,15 +23,7 @@ namespace BowlingGame
             string result = "1- 1- 1- 1- 1- 1- 1- 1- 1- 1-";
 
             var actual = Game.FinalScoreByResult(result);
-            Assert.AreEqual(1, actual);
-        }
-
-        public class BowlingGame
-        {
-            public int FinalScoreByResult(string result)
-            {
-                return 0;
-            }
+            Assert.AreEqual(10, actual);
         }
     }
 }

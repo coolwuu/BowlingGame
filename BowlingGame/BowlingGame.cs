@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BowlingGame
+﻿namespace BowlingGame
 {
     public partial class BowlingGameTest
     {
@@ -11,108 +8,94 @@ namespace BowlingGame
             public int FinalScoreByResult(string result)
             {
                 int finalScore = 0;
-                string[] pinResults = result.Split(' ');
+                string[] frameResults = result.Split(' ');
 
-                for (var i = 0; i < pinResults.Length; i++)
+                for (var i = 0; i < frameResults.Length; i++)
                 {
                     if (IsLastFrame(i))
                     {
-                        finalScore += GetLastFrameScore(pinResults, i);
+                        finalScore += GetLastFrameScore(frameResults, i);
                     }
                     else
                     {
-                        finalScore += GetFrameScore(pinResults, i);
+                        finalScore += GetFrameScore(frameResults, i);
                     }
                 }
 
                 return finalScore;
             }
-
-            private int GetFrameScore(string[] pinResults, int i)
+            private int GetFrameScore(string[] frameResults, int current)
             {
-                int score = 0;
-                if (isStrike(pinResults[i]))
+                if (IsStrike(frameResults[current]))
                 {
-                    score += GetScoreWhenStrike(pinResults, i);
-                    return score;
+                    return GetScoreWhenStrike(frameResults, current);
                 }
-                if (isSpare(pinResults[i]))
+                if (IsSpare(frameResults[current]))
                 {
-                    score += GetScoreWhenSpare(pinResults, i);
-                    return score;
+                    return GetScoreWhenSpare(frameResults, current);
                 }
-                score += GetScoreByFrame(pinResults[i]);
-                return score;
+                return GetScoreByFrame(frameResults[current]);
             }
-
-            private int GetLastFrameScore(string[] pinResults, int i)
+            private int GetLastFrameScore(string[] frameResults, int current)
             {
-                int score = 0;
-                if (isStrike(pinResults[i]))
+                if (IsStrike(frameResults[current]))
                 {
-                    score += GetScoreByFrame(pinResults[i]);
-                    return score;
+                    return GetScoreByFrame(frameResults[current]);
                 }
-                if (isSpare(pinResults[i]))
+                if (IsSpare(frameResults[current]))
                 {
-                    score += GetScoreByFrame(pinResults[i]) + int.Parse(pinResults[i][2].ToString());
-                    return score;
+                    return GetScoreByFrame(frameResults[current]) + int.Parse(frameResults[current][2].ToString());
                 }
-
-                return GetScoreByFrame(pinResults[i]);
+                return GetScoreByFrame(frameResults[current]);
                 
             }
-
-            private int GetScoreWhenStrike(string[] pinResults, int i)
+            private int GetScoreWhenStrike(string[] frameResults, int current)
             {
-                return GetScoreByFrame(pinResults[i])
-                       + GetNext2ThrowsScore(pinResults[i + 1] + " " + pinResults[i + 2]);
+                return GetScoreByFrame(frameResults[current])
+                       + GetScoreForNext2Rolls(frameResults[current + 1] + " " + frameResults[current + 2]);
             }
-            private int GetScoreWhenSpare(string[] pinResults, int i)
+            private int GetScoreWhenSpare(string[] frameResults, int current)
             {
-                int score = 0;
-                if (isStrike(pinResults[i + 1]))
+                if (IsStrike(frameResults[current + 1]))
                 {
-                    score += GetScoreByFrame(pinResults[i]) + GetScoreByFrame(pinResults[i + 1]);
-                    return score;
+                    return GetScoreByFrame(frameResults[current]) + GetScoreByFrame(frameResults[current + 1]);
                 }
-                score += GetScoreByFrame(pinResults[i]) + int.Parse(pinResults[i + 1][0].ToString());
-                return score;
+                return GetScoreByFrame(frameResults[current]) + int.Parse(frameResults[current + 1][0].ToString());
             }
-            private static bool IsLastFrame(int i)
+            private static bool IsLastFrame(int current)
             {
-                return i > 8;
+                return current > 8;
             }
-            private int GetNext2ThrowsScore(string pinResults)
+            private int GetScoreForNext2Rolls(string frameResults)
             {
-                string[] pinResult = pinResults.Split(' ');
-                if (isStrike(pinResult[0]))
+                string[] pinResult = frameResults.Split(' ');
+                if (IsStrike(pinResult[0]))
                 {
-                    if (isStrike(pinResult[1]))
+                    if (IsStrike(pinResult[1]))
                         return GetScoreByFrame(pinResult[0]) + GetScoreByFrame(pinResult[1]);
                     return GetScoreByFrame(pinResult[0]) + int.Parse(pinResult[1][0].ToString());
                 }
                 return GetScoreByFrame(pinResult[0]);
             }
-            private bool isStrike(string result)
+            private bool IsStrike(string frameResult)
             {
-                return result.Contains("X");
+                return frameResult.Contains("X");
             }
-            private bool isSpare(string result)
+            private bool IsSpare(string frameResult)
             {
-                return result.Contains("/");
+                return frameResult.Contains("/");
             }
-            private int GetScoreByFrame(string pinResult)
+            private int GetScoreByFrame(string frameResult)
             {
-                if (pinResult.Contains("X"))
+                if (frameResult.Contains("X"))
                     return 10;
-                if (pinResult.Contains("/"))
+                if (frameResult.Contains("/"))
                     return 10;
-                if (pinResult.Contains("-"))
-                    return int.Parse(pinResult[0].ToString());
-                if (pinResult.Length == 1)
-                    return int.Parse(pinResult[0].ToString());
-                return int.Parse(pinResult[0].ToString()) + int.Parse(pinResult[1].ToString());
+                if (frameResult.Contains("-"))
+                    return int.Parse(frameResult[0].ToString());
+                if (frameResult.Length == 1)
+                    return int.Parse(frameResult[0].ToString());
+                return int.Parse(frameResult[0].ToString()) + int.Parse(frameResult[1].ToString());
             }
         }
     }

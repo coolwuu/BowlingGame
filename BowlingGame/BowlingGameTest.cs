@@ -75,5 +75,25 @@ namespace BowlingGame
 
             Assert.AreEqual(expectedScore, Game.FinalScoreByResult(result));
         }
+
+        [Test]
+        public void get_Spares_Strikes_should_return_score_correctly()
+        {
+
+            string result = "12 34 34 14 7/ X 90 24 63 X X X";
+            int expectedScore = 115;
+
+            Assert.AreEqual(expectedScore, Game.FinalScoreByResult(result));
+        }
+
+        [Test]
+        public void situation1_should_return_score_correctly()
+        {
+
+            string result = "12 34 34 14 7/ X 90 24 63 X X 8";
+            int expectedScore = 113;
+
+            Assert.AreEqual(expectedScore, Game.FinalScoreByResult(result));
+        }
     }
 }

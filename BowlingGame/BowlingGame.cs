@@ -39,8 +39,11 @@ namespace BowlingGame
                         }
                         if (isSpare(pinResults[i]))
                         {
-                            if (isStrike(pinResults[i]))
-                                finalScore += GetScoreByFrame(pinResults[i]) + GetScoreByFrame(pinResults[i+1]);
+                            if (isStrike(pinResults[i + 1]))
+                            {
+                                finalScore += GetScoreByFrame(pinResults[i]) + GetScoreByFrame(pinResults[i + 1]);
+                                continue;
+                            }
                             finalScore += GetScoreByFrame(pinResults[i]) + int.Parse(pinResults[i + 1][0].ToString());
                             continue;
                         }
@@ -78,6 +81,8 @@ namespace BowlingGame
                 if (pinResult.Contains("/"))
                     return 10;
                 if (pinResult.Contains("-"))
+                    return int.Parse(pinResult[0].ToString());
+                if (pinResult.Length == 1)
                     return int.Parse(pinResult[0].ToString());
                 return int.Parse(pinResult[0].ToString()) + int.Parse(pinResult[1].ToString());
             }

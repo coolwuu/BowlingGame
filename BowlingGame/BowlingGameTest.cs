@@ -45,5 +45,15 @@ namespace BowlingGame
 
             Assert.AreEqual(expectedScore, Game.FinalScoreByResult(result));
         }
+
+        [Test]
+        public void get_all_strike_should_return_score_correctly()
+        {
+
+            string result = "X X X X X X X X X X X X";
+            int expectedScore = 300;
+
+            Assert.AreEqual(expectedScore, Game.FinalScoreByResult(result));
+        }
     }
 }

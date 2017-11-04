@@ -11,17 +11,30 @@ namespace BowlingGame
                 int finalScore = 0;
                 string[] pinResults = result.Split(' ');
 
-                for(var i = 0; i< pinResults.Length;i++)
+                for (var i = 0; i < pinResults.Length; i++)
                 {
-                    if (pinResults[i].Contains("X"))
+                    if (i > 8)
                     {
+                        if (isStrike(pinResults[i]))
+                        {
+                            finalScore += GetScoreByFrame(pinResults[i]);
+                            continue;
+                        }
                         finalScore += GetScoreByFrame(pinResults[i]);
-                        finalScore += GetNext2ThrowsScore(pinResults[i+1]+" "+pinResults[i+2]);
                     }
-                    if (pinResults[i].Contains("-"))
-                        finalScore += int.Parse(pinResults[i][0].ToString());
+                    else
+                    {
+                        if (isStrike(pinResults[i]))
+                        {
+                            finalScore += GetScoreByFrame(pinResults[i])
+                                          + GetNext2ThrowsScore(pinResults[i + 1] + " " + pinResults[i + 2]);
+
+                        }
+                        else
+                            finalScore += GetScoreByFrame(pinResults[i]);
+                    }
                 }
-                
+
                 return finalScore;
             }
 

@@ -11,9 +11,9 @@ namespace BowlingGame
         {
             
             string result = "0- 0- 0- 0- 0- 0- 0- 0- 0- 0-";
-
-            var actual = Game.FinalScoreByResult(result);
-            Assert.AreEqual(0,actual);
+            int expectedScore = 0;
+            
+            Assert.AreEqual(expectedScore,Game.FinalScoreByResult(result));
         }
 
         [Test]
@@ -21,9 +21,9 @@ namespace BowlingGame
         {
 
             string result = "1- 1- 1- 1- 1- 1- 1- 1- 1- 1-";
+            int expectedScore = 10;
 
-            var actual = Game.FinalScoreByResult(result);
-            Assert.AreEqual(10, actual);
+            Assert.AreEqual(expectedScore, Game.FinalScoreByResult(result));
         }
     }
 }

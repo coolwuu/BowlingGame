@@ -9,10 +9,10 @@
                 int finalScore = 0;
                 string[] pinResults = result.Split(' ');
 
-                foreach (var pinResult in pinResults)
+                for(var i = 0; i< pinResults.Length;i++)
                 {
-                    if (pinResult.Contains("-"))
-                        finalScore += int.Parse(pinResult[0].ToString());
+                    if (pinResults[i].Contains("-"))
+                        finalScore += int.Parse(pinResults[i][0].ToString());
                 }
 
 

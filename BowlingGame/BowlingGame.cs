@@ -20,6 +20,13 @@ namespace BowlingGame
                             finalScore += GetScoreByFrame(pinResults[i]);
                             continue;
                         }
+                        if (isSpare(pinResults[i]))
+                        {
+                            
+                            finalScore += GetScoreByFrame(pinResults[i]) + int.Parse(pinResults[i][2].ToString());
+                            continue;
+                        }
+
                         finalScore += GetScoreByFrame(pinResults[i]);
                     }
                     else
